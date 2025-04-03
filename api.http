@@ -1,3 +1,6 @@
+
+
+###
 POST http://localhost:3000/users
 Content-Type: application/json
 
@@ -11,7 +14,17 @@ Content-Type: application/json
 ###
 
 GET http://localhost:3000/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiQWRtaW4iLCJlbWFpbCI6ImFkbWluQHVzZXIuY29tIiwiaWF0IjoxNzQzNzA5ODY0LCJleHAiOjE3NDM3MDk5MjR9.hJ4JA40r-3j2Y70PHOwa3Dq4xhyppSOt-t0Q2QLBjCE
 
 ###
 GET http://localhost:3000/users/cm91pvtb10000wltb3ceunn9r
 
+###
+
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+    "email": "admin@user.com",
+    "password": "admin123"
+}
