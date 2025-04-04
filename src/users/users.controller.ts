@@ -4,8 +4,12 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { Request } from 'express';
+import { RoleGuard } from 'src/auth/role/role.guard';
+import { RequiredRoles } from 'src/auth/required-roles.decorador';
+import { Roles } from '@prisma/client';
 
-@UseGuards(AuthGuard)
+@UseGuards(AuthGuard, RoleGuard)
+@RequiredRoles(Roles.ADMIN)
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}

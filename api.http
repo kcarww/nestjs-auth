@@ -3,13 +3,14 @@
 
 ###
 POST http://localhost:3000/users
+Authorization: Bearer {{access_token}}
 Content-Type: application/json
 
 {
-    "name": "Admin",
-    "email": "admin@user.com",
-    "password": "admin123",
-    "role": "ADMIN"
+    "name": "WRITER",
+    "email": "WRITER@user.com",
+    "password": "WRITER123",
+    "role": "WRITER"
 }
 
 ###
@@ -27,8 +28,8 @@ POST http://localhost:3000/auth/login
 Content-Type: application/json
 
 {
-    "email": "admin@user.com",
-    "password": "admin123"
+    "email": "WRITER@user.com",
+    "password": "WRITER123"
 }
 
 ###
@@ -37,7 +38,7 @@ Content-Type: application/json
 Authorization: Bearer {{access_token}}
 
 {
-    "title": "My first post",
+    "title": "My second post",
     "content": "This is the content of my first post.",
     "published": true
 }
