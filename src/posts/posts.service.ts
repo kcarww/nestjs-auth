@@ -35,27 +35,55 @@ export class PostsService {
   }
 
   findOne(id: string) {
+    const ability = this.abilityServer.ability;
+
+    if (!ability.can('read', 'Post')) {
+      throw new Error('Unauthorized'); //403
+    }
+
     return this.prismaService.post.findUnique({
       where: {
         id,
+        AND: [accessibleBy(ability, 'read').Post],
       },
     });
   }
 
-  update(id: string, updatePostDto: UpdatePostDto) {
-    return this.prismaService.post.update({
+  async update(id: string, updatePostDto: UpdatePostDto) {
+    const ability = this.abilityServer.ability;
+
+    const post = await this.prismaService.post.findUnique({
       where: {
         id,
+        AND: [accessibleBy(ability, 'update').Post],
       },
+    });
+
+    if (!post) {
+      throw new Error('Post not found');
+    }
+
+    return this.prismaService.post.update({
+      where: { id },
       data: updatePostDto,
     });
   }
 
-  remove(id: string) {
-    return this.prismaService.post.delete({
+  async remove(id: string) {
+    const ability = this.abilityServer.ability;
+    const post = await this.prismaService.post.findUnique({
       where: {
         id,
+        AND: [accessibleBy(ability, 'remove').Post],
       },
+    });
+
+    if (!post) {
+      throw new Error('Post not found');
+    }
+
+    return this.prismaService.post.delete({
+      where: { id },
     });
   }
 }
