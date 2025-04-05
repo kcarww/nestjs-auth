@@ -28,8 +28,8 @@ POST http://localhost:3000/auth/login
 Content-Type: application/json
 
 {
-    "email": "WRITER@user.com",
-    "password": "WRITER123"
+    "email": "READER@user.com",
+    "password": "READER123"
 }
 
 ###
@@ -38,9 +38,9 @@ Content-Type: application/json
 Authorization: Bearer {{access_token}}
 
 {
-    "title": "My second post",
+    "title": "My false post",
     "content": "This is the content of my first post.",
-    "published": true
+    "published": false
 }
 
 

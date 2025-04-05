@@ -8,11 +8,13 @@ import { Observable } from 'rxjs';
 import { Request } from 'express';
 import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { CaslAbilityService } from 'src/casl/casl-ability/casl-ability.service';
 @Injectable()
 export class AuthGuard implements CanActivate {
   constructor(
     private jwtService: JwtService,
     private prismaService: PrismaService,
+    private caslAbilityService: CaslAbilityService,
   ) {}
 
   async canActivate(
@@ -36,7 +38,7 @@ export class AuthGuard implements CanActivate {
         throw new UnauthorizedException('User not found');
       }
       request.user = user;
-
+      this.caslAbilityService.createForUser(user);
       return true;
     } catch (e) {
       console.error(e);
